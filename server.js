@@ -17,15 +17,21 @@ app.put('/', function(request, response) {
     response.send('PUT request received!');
 })
 
-//????
+
 
 app.all('*', function(request, response, next) {
     console.log(request.method + " " + request.url);
     next();
 })
 app.use('/api/v1', require('./routes/routes_api_v1'));
+app.use('/info', require('./routes/routes_api_v2'));
 
-//????
+
+app.all('*', function(request, response){
+    response.status(404);
+    response.send('404 - Not Found');
+})
+
 
 var port = process.env.PORT || app.get('PORT');
 
